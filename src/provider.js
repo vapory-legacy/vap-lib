@@ -1,7 +1,7 @@
 const njsp = require("nano-json-stream-parser");
 const request = require("xhr-request-promise");
 
-const EthereumProvider = (url, intercept) => {
+const VaporyProvider = (url, intercept) => {
   intercept = intercept || (() => {});
 
   let api = {};
@@ -53,7 +53,7 @@ const EthereumProvider = (url, intercept) => {
       }
     });
     ws.on("message", parseResponse);
-    ws.on("open", () => callbacks.connect && callbacks.connect(eth));
+    ws.on("open", () => callbacks.connect && callbacks.connect(vap));
     ws.on("close", () => callbacks.disconnect && callbacks.disconnect());
     
   } else if (/^http/.test(url)) {
@@ -70,7 +70,7 @@ const EthereumProvider = (url, intercept) => {
             callback(null, resp.result)
           }
         })
-        .catch(err => callback("Couldn't connect to Ethereum node."));
+        .catch(err => callback("Couldn't connect to Vapory node."));
     });
 
     setTimeout(() => {
@@ -84,4 +84,4 @@ const EthereumProvider = (url, intercept) => {
   return api;
 };
 
-module.exports = EthereumProvider;
+module.exports = VaporyProvider;

@@ -20,17 +20,17 @@ const Api = provider => {
     } else if (type === "uint256" || type === "bytes32") {
       return {data: Bytes.pad(32, value), dynamic: false};
     } else {
-      throw "Eth-lib can't encode ABI type " + type + " yet.";
+      throw "Vap-lib can't encode ABI type " + type + " yet.";
     }
   }
 
-  const sendTransaction = send("eth_sendTransaction");
-  const sendRawTransaction = send("eth_sendRawTransaction");
-  const getTransactionReceipt = send("eth_getTransactionReceipt");
-  const compileSolidity = send("eth_compileSolidity");
-  const call = send("eth_call");
-  const getBalance = send("eth_getBalance");
-  const accounts = send("eth_accounts");
+  const sendTransaction = send("vap_sendTransaction");
+  const sendRawTransaction = send("vap_sendRawTransaction");
+  const getTransactionReceipt = send("vap_getTransactionReceipt");
+  const compileSolidity = send("vap_compileSolidity");
+  const call = send("vap_call");
+  const getBalance = send("vap_getBalance");
+  const accounts = send("vap_accounts");
 
   const removeEmptyTo = tx =>
     tx.to === "" || tx.to === "0x" ? Map.remove("to")(tx) : tx;
@@ -41,8 +41,8 @@ const Api = provider => {
     // Get basic defaults
     Promise.all([
       tx.chainId || send("net_version")(),
-      tx.gasPrice || send("eth_gasPrice")(),
-      tx.nonce || send("eth_getTransactionCount")(tx.from,"latest"),
+      tx.gasPrice || send("vap_gasPrice")(),
+      tx.nonce || send("vap_getTransactionCount")(tx.from,"latest"),
       tx.value || "0x0",
       tx.data || "0x"])
     // Add them to tx
@@ -59,7 +59,7 @@ const Api = provider => {
         estimateTx.value = tx.value;
         estimateTx.nonce = tx.nonce;
         estimateTx.data = tx.data;
-        return send("eth_estimateGas")(estimateTx)
+        return send("vap_estimateGas")(estimateTx)
           .then(usedGas => {
             return Map.merge(tx)({gas: Nat.div(Nat.mul(usedGas,"0x6"),"0x5")});
           });

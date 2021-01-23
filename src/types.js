@@ -31,7 +31,7 @@ F.Address = F(F.Type, {
   rand: () => F.Account.rand().address
 })
 .__name("Address")
-.__desc("an Ethereum public address");
+.__desc("an Vapory public address");
 
 F.Hash = F(F.Type, {
   form: F.NBytes(32).form,
@@ -47,7 +47,7 @@ F.PrivateKey = F(F.Type, {
   rand: F.NBytes(32).rand
 })
 .__name("PrivateKey")
-.__desc("an Ethereum private key");
+.__desc("an Vapory private key");
 
 F.Account = (() => {
   const base = F.Struct({
@@ -61,7 +61,7 @@ F.Account = (() => {
   });
 })()
 .__name("Account")
-.__desc("an Ethereum account");
+.__desc("an Vapory account");
 
 F.BytesTree = F(F.Type, {
   form: "either " + F.Bytes.form + ", or a tree of nested JavaScript Arrays of BytesTrees",
