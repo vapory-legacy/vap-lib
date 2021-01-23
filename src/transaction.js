@@ -4,12 +4,12 @@ const Bytes = require("./bytes");
 const RLP = require("./rlp");
 const keccak256 = require("./hash").keccak256;
 
-// EthereumRPC, IncompleteTransaction -> Promise Transaction
+// VaporyRPC, IncompleteTransaction -> Promise Transaction
 const addDefaults = (rpc, tx) => {
   var baseDefaults = [
     tx.chainId || rpc("net_version", []),
-    tx.gasPrice || rpc("eth_gasPrice", []),
-    tx.nonce || rpc("eth_getTransactionCount", [tx.from,"latest"]),
+    tx.gasPrice || rpc("vap_gasPrice", []),
+    tx.nonce || rpc("vap_getTransactionCount", [tx.from,"latest"]),
     tx.value || "0x0",
     tx.data || "0x"
   ];
@@ -18,7 +18,7 @@ const addDefaults = (rpc, tx) => {
     var chainId = Nat.fromNumber(chainIdNum);
     var gasEstimator = tx.gas
       ? Promise.resolve(null)
-      : rpc("eth_estimateGas", [{
+      : rpc("vap_estimateGas", [{
         from: noAddress(tx.from) ? null : tx.from,
         to: noAddress(tx.to) ? null : tx.to,
         value: tx.value,

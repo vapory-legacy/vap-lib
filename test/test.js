@@ -6,9 +6,9 @@ const ref = {rlp: require("rlp")};
 const Nat = require("./../src/Nat.js");
 const Account = require("./../src/account.js");
 const keccak256 = require("./../src/hash.js").keccak256;
-const ethjs = {
-  signer: require("ethjs-signer"),
-  account: require("ethjs-account")};
+const vapjs = {
+  signer: require("vapjs-signer"),
+  account: require("vapjs-account")};
 
 describe("RLP", () => {
   it("Must operate identically to reference implementation", () => {
@@ -44,11 +44,11 @@ describe("account", function () {
       32);
   });
 
-  it("must match the generated address with EthJS-account", () => {
+  it("must match the generated address with VapJS-account", () => {
     F.forall([F.NBytes(32)], pvt => {
-      const ethfpAcc = Account.fromPrivate(pvt);
-      const ethjsAcc = ethjs.account.privateToAccount(pvt);
-      return ethfpAcc.address === ethjsAcc.address;
+      const vapfpAcc = Account.fromPrivate(pvt);
+      const vapjsAcc = vapjs.account.privateToAccount(pvt);
+      return vapfpAcc.address === vapjsAcc.address;
     }, 128);
   });
 
@@ -124,8 +124,8 @@ describe("account", function () {
           for (let key in transaction.object)
             txObj[key] = transaction.object[key].replace(/^0x$/,"0x0");
           
-          //Signs it, using pre-EIP 155 scheme (using the ethjs-signer lib)
-          const oldSignature = ethjs.signer.sign(txObj, correctAccount.privateKey);
+          //Signs it, using pre-EIP 155 scheme (using the vapjs-signer lib)
+          const oldSignature = vapjs.signer.sign(txObj, correctAccount.privateKey);
 
           //// Checks if the signature is as expected
           assert(transaction.oldSignature === oldSignature);

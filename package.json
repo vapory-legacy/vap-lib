@@ -1,7 +1,8 @@
 {
-  "name": "eth-lib",
+  "name": "vap-lib",
+  "namespace": "vapory",
   "version": "0.2.7",
-  "description": "Lightweight Ethereum libraries",
+  "description": "Lightweight Vapory libraries",
   "main": "lib/index.js",
   "scripts": {
     "build": "babel src --out-dir=lib",
@@ -9,23 +10,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maiavictor/eth-lib.git"
+    "url": "git+https://github.com/vaporyco/vap-lib.git"
   },
   "keywords": [
-    "ethereum"
+    "vapory"
   ],
   "author": "Victor Maia",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/maiavictor/eth-lib/issues"
+    "url": "https://github.com/vaporyco/vap-lib/issues"
   },
-  "homepage": "https://github.com/maiavictor/eth-lib#readme",
+  "homepage": "https://github.com/vaporyco/vap-lib#readme",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
-    "ethjs-account": "^0.1.1",
-    "ethjs-signer": "^0.1.1",
-    "rlp": "^2.0.0"
+    "vapjs-account": "0.1.4",
+    "vapjs-signer": "0.1.1",
+    "@vaporyjs/rlp": "2.0.0"
   },
   "dependencies": {
     "bn.js": "^4.11.6",
